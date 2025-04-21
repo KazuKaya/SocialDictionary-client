@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 export default function ContentCard() {
 
@@ -18,8 +18,12 @@ export default function ContentCard() {
             <div className='flex flex-col mt-5 text-sm text-gray-600 border-t pt-3'>
                 <div className='flex justify-between items-center'>
                     <div className='flex gap-4 items-center'>
-                        <button className='text-gray-500 hover:text-green-600 transition-colors'>👍 Beğen</button>
-                        <button className='text-gray-500 hover:text-red-600 transition-colors'>👎 Beğenme</button>
+                        <button className='text-gray-500 hover:text-green-600 transition-colors'>
+                            <FaChevronUp />
+                        </button>
+                        <button className='text-gray-500 hover:text-red-600 transition-colors'>
+                            <FaChevronDown />
+                        </button>
                     </div>
                     <p className='font-medium text-blue-600'>{content.username}</p>
                 </div>
