@@ -28,16 +28,16 @@ export default function Header() {
 
                 {/* --- Logo ve Site Adı (Sadece md ve üzeri ekranlarda direkt görünür) --- */}
                 {/* Mobil ekranda gizli (hidden), md ve üzerinde görünür (md:flex) */}
-                <div className='hidden md:flex gap-3 items-center'>
+                <div className='max-laptop:hidden flex gap-3 items-center'>
                     <img src="/logo.png" alt="SocialDictionary Logo" className="h-8 w-auto" />
-                    <h2 className='text-xl md:text-2xl font-bold text-gray-800'>SocialDictionary</h2>
+                    <h2 className='text-xl font-bold text-gray-800'>SocialDictionary</h2>
                 </div>
 
                 {/* --- Arama Çubuğu --- */}
                 {/* Mobil ekranda butondan sonra gelmesi ve esnemesi için order ve flex-grow */}
-                <div className='flex flex-grow md:flex-grow-0 mx-2 md:mx-4'> {/* Mobil için flex-grow, tablet/desktop için sabit */}
+                <div className='flex-grow mx-2 md:mx-4 max-w-lg md:max-w-md'> {/* max-w ekleyerek genişliği sınırlayabiliriz */}
                     <input
-                        className='w-full h-9 px-3 border rounded-md border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out' // Mobil için w-full
+                        className='w-full h-9 px-3 border rounded-md border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out'
                         type="text"
                         placeholder="Ara..."
                     />
@@ -45,7 +45,7 @@ export default function Header() {
 
                 {/* --- Header Right İkonları (Sadece md ve üzeri ekranlarda direkt görünür) --- */}
                 {/* Mobil ekranda gizli (hidden), md ve üzerinde görünür (md:flex) */}
-                <div className='hidden md:flex w-auto md:w-[150px] justify-end md:justify-between items-center text-2xl space-x-4'>
+                <div className='max-laptop:hidden md:flex w-auto md:w-[150px] justify-end md:justify-between items-center text-2xl space-x-4'>
                     {/* Butonlar arasındaki boşluk için space-x-4 */}
                     <a href="#" className='text-gray-600 hover:text-blue-600'>
                         <LuMessageCircleMore />

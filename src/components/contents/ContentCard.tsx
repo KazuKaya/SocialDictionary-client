@@ -7,7 +7,7 @@ export default function ContentCard() {
         title: "Bu bir içerik başlığıdır",
         description: "Bu içerikle ilgili açıklama metni buraya gelecek.",
         username: "kullaniciAdi",
-        createdDate: new Date()
+        createdDate: new Date().toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' })
     });
 
     return (
@@ -28,7 +28,7 @@ export default function ContentCard() {
                     <p className='font-medium text-blue-600'>{content.username}</p>
                 </div>
                 <p className='flex mt-2 justify-end text-xs text-gray-400'>
-                    {content.createdDate.toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                    {content.createdDate}
                 </p>
             </div>
         </div>
