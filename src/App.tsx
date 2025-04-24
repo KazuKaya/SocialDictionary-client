@@ -40,7 +40,7 @@ function App() {
         <Sidebar titles={titles} />
 
         {/* Orta Sütun (Ana İçerik) w-full*/}
-        <div className='flex flex-col w-[700px] bg-amber-800 md:w-[550px] lg:w-[600px] h-auto p-2 md:p-4 overflow-y-auto'>
+        <div className='flex flex-col max-md:w-full bg-amber-800 md:w-[550px] lg:w-[600px] h-auto p-2 md:p-4 overflow-y-auto'>
           <ContentCard />
           <ContentCard />
           <ContentCard />
