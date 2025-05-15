@@ -2,10 +2,11 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import Header from './components/layout/Header';
 import Sidebar from './components/layout/Sidebar';
-import { getContents } from './api/contents/contentsApi';
+import { getContents, getRecentContents } from './api/contents/contentsApi';
 import { getTitles, getTrendingTitles } from './api/titles/titlesApi';
 import { getUsers } from './api/users/usersApi';
 import ContentList from './components/contents/ContentList';
+import RecentContents from './components/layout/RecentContents';
 
 type Content = {
   id: string;
@@ -32,16 +33,19 @@ function App() {
   const [trendingTitles, setTrendingTitles] = useState([]);
   const [titles, setTitles] = useState<Title[]>([]);
   const [users, setUsers] = useState<User[]>([]);
+  const [recents, setRecents] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [contentData, titleData, userData, trendingData] = await Promise.all([
+        const [contentData, titleData, userData, trendingData, recentContentData] = await Promise.all([
           getContents(),
           getTitles(),
           getUsers(),
-          getTrendingTitles()
+          getTrendingTitles(),
+          getRecentContents()
         ]);
+        console.log("Recent contents:", recentContentData);
 
         const enrichedContents = contentData.map((content: Content) => {
           const titleObj = titleData.find((t: Title) => t.id === content.titleId);
@@ -53,10 +57,22 @@ function App() {
           };
         });
 
+        const enrichedRecents = recentContentData.map((content: Content) => {
+          const titleObj = titleData.find((t: Title) => t.id === content.titleId);
+          const userObj = userData.find((u: User) => u.id === content.userId);
+          return {
+            title: titleObj?.name || "Başlık bulunamadı",
+            content: content.description,
+            username: userObj?.username || "Kullanıcı yok"
+          };
+        });
+
+
         setContents(enrichedContents);
         setTitles(titleData);
         setUsers(userData);
         setTrendingTitles(trendingData);
+        setRecents(enrichedRecents);
       } catch (error) {
         console.error("Veriler alınırken hata oluştu:", error);
       }
@@ -66,7 +82,6 @@ function App() {
   }, []);
 
   return (
-
     <div className='flex flex-col w-screen h-screen bg-gray-50'>
       <Header />
       {/* Main Content Area */}
@@ -81,16 +96,7 @@ function App() {
         </div>
 
         {/* Latest Contents */}
-        <div className='max-laptop:hidden flex flex-col w-[300px] h-full p-1 overflow-y-auto border-l border-gray-200 bg-white rounded-r-md'>
-          <h3 className="text-lg font-semibold p-2 text-gray-700 border-b">Diğer</h3>
-          <div
-            className='border-b border-gray-100 my-0.5 h-9 px-3 flex items-center justify-between text-sm hover:bg-gray-100 cursor-pointer rounded text-gray-700'
-          >
-            <span>Başlık </span>
-            <span className='text-xs text-gray-400'>Uzunluk:</span>
-          </div>
-
-        </div>
+        <RecentContents data={recents} />
       </div>
     </div>
   );

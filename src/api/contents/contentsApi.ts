@@ -11,3 +11,13 @@ export const getContents = async () => {
         throw error;
     }
 };
+
+export const getRecentContents = async () => {
+    try {
+        const response = await axios.get(`${API_URL}/recent`);
+        return response.data;
+    } catch (error) {
+        console.error("Recent contents error:", error);
+        throw error;
+    }
+};
